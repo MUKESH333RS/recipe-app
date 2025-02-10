@@ -7,11 +7,16 @@ const favoritesSlice = createSlice({
   },
   reducers: {
     addFavorite: (state, action) => {
-      state.favoriteRecipes.push(action.payload);
+      const recipeExists = state.favoriteRecipes.some(
+        (recipe) => recipe.recipe.label === action.payload.recipe.label
+      );
+      if (!recipeExists) {
+        state.favoriteRecipes.push(action.payload);
+      }
     },
     removeFavorite: (state, action) => {
       state.favoriteRecipes = state.favoriteRecipes.filter(
-        recipe => recipe.recipe.label !== action.payload.recipe.label
+        (recipe) => recipe.recipe.label !== action.payload.recipe.label
       );
     }
   }
