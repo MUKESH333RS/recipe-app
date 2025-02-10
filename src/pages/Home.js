@@ -4,6 +4,7 @@ import { getRecipes } from '../redux/recipeSlice';
 import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
 import Filters from '../components/Filters';
+import './Home.css';
 
 const Home = () => {
   const dispatch = useDispatch();

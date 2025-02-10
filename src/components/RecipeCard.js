@@ -1,4 +1,6 @@
 import React from 'react';
+import './RecipeCard.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../redux/favoritesSlice';
 
@@ -29,6 +31,7 @@ const RecipeCard = ({ recipe }) => {
         }`}
       >
         {isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
+        <p>{recipe.recipe.cuisineType}</p>
       </button>
     </div>
   );
