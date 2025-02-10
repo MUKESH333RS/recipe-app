@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRecipes } from '../redux/recipeSlice';
 import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
+import Filters from '../components/Filters';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { allRecipes, loading } = useSelector(state => state.recipes);
+  const { allRecipes, loading, filters } = useSelector(state => state.recipes);
 
   useEffect(() => {
-    dispatch(getRecipes('pizza')); // Default search
-  }, [dispatch]);
+    dispatch(getRecipes({ query: 'pizza', ...filters })); // Load default recipes with filters
+  }, [dispatch, filters]);
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Recipe App</h1>
       <SearchBar /> {/* Search Component */}
+      <Filters /> {/* Filter Component */}
 
       {loading && <p>Loading recipes...</p>}
 
