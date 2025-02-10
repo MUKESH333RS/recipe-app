@@ -1,20 +1,29 @@
+// src/pages/Favorites.js
+
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFavorite } from '../redux/favoritesSlice';
 import RecipeCard from '../components/RecipeCard';
+import './Favorites.css';
 
 const Favorites = () => {
-  const { favoriteRecipes } = useSelector(state => state.favorites);
+  const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+  const dispatch = useDispatch();
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Favorite Recipes</h1>
-
-      {favoriteRecipes.length === 0 ? (
-        <p>No favorite recipes yet. Add some!</p>
+    <div className="favorites-container">
+      <h1>Favorite Recipes</h1>
+      {favorites.length === 0 ? (
+        <p className="no-favorites">No favorite recipes added yet.</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
-          {favoriteRecipes.map((recipe, index) => (
-            <RecipeCard key={index} recipe={recipe} />
+        <div className="favorites-grid">
+          {favorites.map((recipe, index) => (
+            <RecipeCard
+              key={index}
+              recipe={recipe.recipe}
+              isFavorite={true}
+              onRemove={() => dispatch(removeFavorite(recipe))}
+            />
           ))}
         </div>
       )}
